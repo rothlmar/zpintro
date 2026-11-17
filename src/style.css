@@ -107,6 +107,14 @@ h4 {
   color: var(--text-muted);
 }
 
+.prerequisites {
+  margin: 0.5rem 0 0;
+  padding: 0.6rem 1rem;
+  background: var(--surface-2);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
 .site-footer {
   margin-top: 4rem;
   padding: 1.5rem 0 3rem;
