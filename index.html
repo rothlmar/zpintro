@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An interactive introduction to the p-adic integers." />
+    <title>The p-adic Integers</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <h1>The <span class="nowrap">$p$-adic</span> Integers</h1>
+        <p class="subtitle">An interactive introduction</p>
+      </div>
+    </header>
+
+    <main class="wrap" id="content">
+      <section id="intro">
+        <h2>1. Numbers that keep going to the left</h2>
+        <p>
+          Fix a prime $p$. Every non-negative integer has a base-$p$ expansion
+          $$n = a_0 + a_1 p + a_2 p^2 + \cdots + a_k p^k, \qquad a_i \in \{0, 1, \ldots, p-1\},$$
+          and we usually write the digits from right to left: $n = a_k \ldots a_2\, a_1\, a_0$.
+          For example, with $p = 5$,
+          $$38 = 3 + 2\cdot 5 + 1\cdot 5^2 = 123_{(5)}.$$
+        </p>
+        <p>
+          The expansion of a non-negative integer always stops. What if we let it continue forever to the left?
+          A <strong><span class="nowrap">$p$-adic</span> integer</strong> is a formal series
+          $$x = \sum_{i=0}^{\infty} a_i p^i = a_0 + a_1 p + a_2 p^2 + \cdots, \qquad a_i \in \{0, 1, \ldots, p-1\},$$
+          which we write as $\ldots a_3\, a_2\, a_1\, a_0$. The set of all of them is written $\mathbb{Z}_p$.
+          As section 2 shows, some of the infinite digit strings can be identified with familiar types of numbers,
+          like negative integers and fractions.
+        </p>
+        <p>
+          A sum with infinitely many non-zero terms looks as if it must be infinitely large. But we never add up the
+          terms to get a size. A <span class="nowrap">$p$-adic</span> integer <em>is</em> its string of digits, and
+          the series notation is a convenient way to name the digits and their positions. What makes these strings
+          interesting is that we can do arithmetic with them. In grade-school addition and multiplication, the last
+          $n$ digits of the answer depend only on the last $n$ digits of the inputs. So every digit of a sum or product
+          is computed after finitely many steps, even though there are infinitely many digits.
+        </p>
+      </section>
+
+      <section id="two-representations">
+        <h2>2. Two representations of the same number</h2>
+        <p>
+          The <strong>series representation</strong> describes a <span class="nowrap">$p$-adic</span> integer by its digits $a_0, a_1, a_2, \ldots$.
+          The <strong>sequence representation</strong> describes it by what you see when you cut it off after $n$
+          digits:
+          $$x_n = a_0 + a_1 p + \cdots + a_{n-1}p^{n-1}, \qquad 0 \le x_n \lt p^n.$$
+          Each $x_n$ is a residue modulo $p^n$. Going from $x_n$ to $x_{n+1}$ adds one more term of the series, and
+          that term is a multiple of $p^n$, so consecutive terms agree as far as they go:
+          $$\begin{aligned} x_{n+1} &= x_n + a_n p^n \\ &\equiv x_n \pmod{p^n}. \end{aligned}$$
+          We call a sequence $(x_1, x_2, x_3, \ldots)$ with $0 \le x_n \lt p^n$ and this property a
+          <strong>coherent sequence</strong>. Going back is just as easy: solve the same equation for the digit,
+          $$a_0 = x_1, \qquad a_n = \frac{x_{n+1} - x_n}{p^n}.$$
+          So the two representations describe exactly the same objects.
+        </p>
+        <h3>Beyond the non-negative integers</h3>
+        <p>
+          For a non-negative integer $m$, the term $x_n$ is just $m \bmod p^n$, and once $p^n > m$ every term equals
+          $m$: the digits stop. The sequence representation suggests what the <em>other</em> <span class="nowrap">$p$-adic</span> integers might be.
+          All we need is a sensible value for "the number modulo $p^n$" for every $n$.
+        </p>
+        <p>
+          <strong>The integer $-1$.</strong> Modulo $p^n$, the residue of $-1$ is $x_n = p^n - 1$. Just as
+          $10^n - 1 = 99\ldots9$ in base ten, $p^n - 1$ is written in base $p$ with $n$ digits, all equal to $p - 1$:
+          $$p^n - 1 = (p-1) + (p-1)p + \cdots + (p-1)p^{n-1}.$$
+          Every term of the sequence adds one more digit $p - 1$, so
+          $$-1 = \ldots (p-1)(p-1)(p-1).$$
+          For $p = 5$ the sequence is $4, 24, 124, 624, \ldots$, and $-1 = \ldots 4444_{(5)}$.
+        </p>
+        <p>
+          <strong>The fraction $-\tfrac14$.</strong> Take $p = 5$. Because $4$ is invertible modulo every power of
+          $5$, the fraction $-\tfrac14$ has a residue modulo $5^n$: the unique $x_n$ with $4x_n \equiv -1 \pmod{5^n}$.
+          $$4 \cdot 1 = 4 \equiv -1 \!\!\pmod 5, \qquad 4 \cdot 6 = 24 \equiv -1 \!\!\pmod{25}, \qquad
+            4 \cdot 31 = 124 \equiv -1 \!\!\pmod{125}, \qquad \ldots$$
+          So the sequence is $1, 6, 31, 156, \ldots$, that is, $x_n = (5^n - 1)/4$. In base $5$ these are
+          $1, 11, 111, 1111, \ldots$, so
+          $$-\tfrac14 = \ldots 1111_{(5)}.$$
+          The same works for any fraction whose denominator is not divisible by $p$; section 5 explains why.
+          Most <span class="nowrap">$p$-adic</span> integers, though, are neither integers nor fractions. There are only countably many fractions,
+          but uncountably many infinite digit strings.
+        </p>
+        <aside class="note">
+          <p>
+            <strong>For algebraists.</strong> The sequences live in the direct product
+            $\prod_{n \ge 1} \mathbb{Z}/p^n\mathbb{Z}$, but coherence is an extra condition: $x_{n+1}$ must map to
+            $x_n$ under the reduction map $\mathbb{Z}/p^{n+1}\mathbb{Z} \to \mathbb{Z}/p^n\mathbb{Z}$. The coherent
+            sequences form the <em>inverse limit</em> $\varprojlim \mathbb{Z}/p^n\mathbb{Z}$, a subring of the
+            product. You may also see $\mathbb{Z}_p$ defined as equivalence classes of integer sequences satisfying
+            the congruence. The sequences with $0 \le x_n \lt p^n$ used here are the canonical representatives of
+            those classes.
+          </p>
+        </aside>
+        <div class="demo" id="demo-converter">
+          <h3 class="demo-title">Try it: series ⇄ sequence</h3>
+        </div>
+      </section>
+
+      <section id="ring">
+        <h2>3. $\mathbb{Z}_p$ is a ring</h2>
+        <p>
+          <strong>In the series representation</strong>, using digits, we add and multiply exactly as in grade
+          school. Carries move to the left, and
+          there is no last column where they have to stop. Digit $k$ of $x + y$ or $xy$ depends only on digits
+          $0, \ldots, k$ of $x$ and $y$, so both operations are well defined on infinite digit strings.
+        </p>
+        <p>
+          <strong>In the sequence representation</strong>, the ring structure is even clearer. Operate term by
+          term:
+          $$(x_n) + (y_n) = \big((x_n + y_n) \bmod p^n\big), \qquad (x_n)\cdot(y_n) = \big(x_n y_n \bmod p^n\big).$$
+          Each $\mathbb{Z}/p^n\mathbb{Z}$ is a ring, and reduction modulo $p^n$ respects $+$ and $\times$, so the
+          result is again coherent. So $\mathbb{Z}_p$ is closed under both operations and inherits the ring axioms
+          from the rings $\mathbb{Z}/p^n\mathbb{Z}$. It is a commutative ring with identity
+          $$1 = \ldots 0001 = (1, 1, 1, \ldots).$$
+        </p>
+        <p>
+          The demo computes the same sum and product in both representations. You can enter fractions such as
+          $2/3$ as well as integers.
+        </p>
+        <div class="demo" id="demo-ring">
+          <h3 class="demo-title">Try it: add and multiply</h3>
+        </div>
+      </section>
+
+      <section id="integers">
+        <h2>4. The integers are a subring of $\mathbb{Z}_p$</h2>
+        <p>
+          The map
+          $$\mathbb{Z} \to \mathbb{Z}_p, \qquad n \mapsto (n \bmod p,\ n \bmod p^2,\ n \bmod p^3, \ldots)$$
+          is a ring homomorphism. It is injective: if $n \ne 0$, then $n \not\equiv 0 \pmod{p^k}$
+          as soon as $p^k > |n|$. So $\mathbb{Z}$ is a <strong>subring</strong> of $\mathbb{Z}_p$.
+        </p>
+        <p>
+          For $n \ge 0$, the <span class="nowrap">$p$-adic</span> digits of $n$ are its base-$p$ digits followed by zeros. In other words, there
+          is an $N$ with $a_m = 0$ for all $m > N$, and the formal series is just the base-$p$ representation. Negative
+          integers are different:
+        </p>
+        <div class="demo" id="demo-integers">
+          <h3 class="demo-title">Try it: digits of an integer</h3>
+        </div>
+        <p>
+          Section 2 found the digits of $-1$ from its residues. Another way to find the digits of $-n$ is to ask
+          what must be added to $n$ to get $0$. Work it out yourself, one column at a time from the right.
+        </p>
+        <div class="demo" id="demo-carry">
+          <h3 class="demo-title">Try it: find the digits of $-n$</h3>
+        </div>
+        <p>
+          The pattern is the same for every $n > 0$. Choose $k$ with $p^k > n$. Modulo $p^k$ the residue of $-n$ is
+          $p^k - n$, and each further power of $p$ contributes a digit $p - 1$, exactly as for $-1$:
+          $$p^m - n = (p^k - n) + (p-1)p^k + (p-1)p^{k+1} + \cdots + (p-1)p^{m-1} \qquad (m \ge k).$$
+          So the digits of $-n$ are the $k$ base-$p$ digits of $p^k - n$, followed by $p - 1$ forever. For example,
+          with $p = 5$ and $n = 7$, take $k = 2$: $25 - 7 = 18 = 33_{(5)}$, so $-7 = \ldots 44433_{(5)}$.
+        </p>
+        <p>
+          The integers inside $\mathbb{Z}_p$ are therefore exactly the digit strings that end in all $0$s (the
+          non-negative integers) or all $(p-1)$s (the negative integers).
+        </p>
+      </section>
+
+      <section id="division">
+        <h2>5. Division, and the units of $\mathbb{Z}_p$</h2>
+        <p>
+          Recall that a <strong>unit</strong> in a ring is an element with a multiplicative inverse: $u$ is a unit
+          if there is some $v$ in the ring with $uv = 1$. In $\mathbb{Z}$ the only units are $1$ and $-1$. For
+          example, $3$ is not a unit, because no integer $q$ satisfies $3q = 1$.
+        </p>
+        <p>
+          $\mathbb{Z}_p$ has many more units. Here is a challenge: find the inverse of $3$, a
+          <span class="nowrap">$p$-adic</span> integer $q$ with $3 \cdot q = 1$. Build it yourself one digit at a time, starting from the
+          right.
+        </p>
+        <div class="demo" id="demo-division">
+          <h3 class="demo-title">Try it: build $q = a / b$ digit by digit</h3>
+        </div>
+        <p>
+          <strong>What just happened.</strong> Suppose you have already found $q_0, \ldots, q_{k-1}$, so the remainder
+          $a - bq$ ends in $k$ zeros. Choosing $q_k$ changes $bq$ by $q_k b\, p^k$, and the only part of that which
+          touches position $k$ is $q_k b_0$. So you need
+          $$b_0\, q_k \equiv r_k \pmod p,$$
+          where $r_k$ is the digit of the remainder at position $k$. Because $p$ is prime, $\mathbb{Z}/p\mathbb{Z}$ is a
+          field. If $b_0 \ne 0$, this congruence has <em>exactly one</em> solution $q_k = r_k b_0^{-1} \bmod p$, at
+          every step and forever. If $b_0 = 0$, then $b q$ always ends in $0$, so it can never equal $1$.
+        </p>
+        <div class="theorem">
+          <p>
+            <strong>Theorem.</strong> A <span class="nowrap">$p$-adic</span> integer $x = \ldots a_2 a_1 a_0$ is a unit in $\mathbb{Z}_p$ if and
+            only if $a_0 \ne 0$, that is, if and only if $p \nmid x$.
+          </p>
+        </div>
+        <p>
+          Some consequences:
+        </p>
+        <ul>
+          <li>
+            Every fraction $c/b$ with $p \nmid b$ is a <span class="nowrap">$p$-adic</span> integer, namely $c \cdot b^{-1}$. Its digits are
+            always <em>eventually periodic</em>, just like the decimal expansion of a fraction. (The converse is also
+            true: an eventually periodic digit string is a fraction.) Try $a = 1,\ b = 1 - p$ for your chosen $p$ and
+            compare the answer with section 4.
+          </li>
+          <li>
+            Every non-zero $x \in \mathbb{Z}_p$ can be written uniquely as $x = p^v u$ with $u$ a unit. Shift away the
+            $v$ zeros at the right-hand end and what is left has a non-zero last digit.
+          </li>
+          <li>
+            The non-units are exactly the multiples of $p$, so they form an ideal $p\mathbb{Z}_p$. It is the unique
+            maximal ideal: $\mathbb{Z}_p$ is a <em>local ring</em>, with residue field
+            $\mathbb{Z}_p / p\mathbb{Z}_p \cong \mathbb{Z}/p\mathbb{Z}$.
+          </li>
+        </ul>
+      </section>
+
+      <section id="valuation">
+        <h2>6. The <span class="nowrap">$p$-adic</span> valuation</h2>
+        <p>
+          The number $v$ in $x = p^v u$ deserves a name. The <strong><span class="nowrap">$p$-adic</span> valuation</strong> of a non-zero integer
+          is the number of times $p$ divides it:
+          $$v_p(n) = \max\{k : p^k \mid n\}, \qquad v_p(0) = \infty,$$
+          and for fractions $v_p(c/b) = v_p(c) - v_p(b)$, which can be negative. For a <span class="nowrap">$p$-adic</span> integer, $v_p(x)$ is
+          the position of the lowest non-zero digit. Two properties drive everything:
+          $$v_p(xy) = v_p(x) + v_p(y), \qquad v_p(x + y) \ge \min\big(v_p(x), v_p(y)\big).$$
+          The second is the <strong>strong triangle inequality</strong>. Its proof is one line: if $p^k$ divides both
+          $x$ and $y$, it divides $x + y$. Moreover, if $v_p(x) \ne v_p(y)$ the inequality is an equality, because the
+          lowest non-zero digit of the less divisible term cannot be cancelled.
+        </p>
+        <p>
+          <strong>Closure under addition.</strong> The fractions that are <span class="nowrap">$p$-adic</span> integers are exactly those with
+          non-negative valuation:
+          $$\mathbb{Z}_{(p)} = \{\, c/b \in \mathbb{Q} : p \nmid b \,\} = \{\, x \in \mathbb{Q} : v_p(x) \ge 0 \,\}.$$
+          If $v_p(x) \ge 0$ and $v_p(y) \ge 0$, the strong triangle inequality and the product rule give
+          $$v_p(x+y) \ge \min\big(v_p(x), v_p(y)\big) \ge 0, \qquad v_p(xy) = v_p(x) + v_p(y) \ge 0.$$
+          So this set is closed
+          under addition and multiplication: it is a subring of $\mathbb{Q}$. The same argument, applied to the field
+          $\mathbb{Q}_p$ of <span class="nowrap">$p$-adic</span> numbers (fractions of <span class="nowrap">$p$-adic</span> integers), shows that $\mathbb{Z}_p$ is the set of
+          elements of valuation $\ge 0$ in $\mathbb{Q}_p$.
+        </p>
+        <div class="demo" id="demo-valuation">
+          <h3 class="demo-title">Try it: valuations of a sum</h3>
+        </div>
+        <aside class="note" id="absolute-value-aside">
+          <p>
+            <strong>Going further: <span class="nowrap">$p$-adic</span> distance.</strong> Setting $|x|_p = p^{-v_p(x)}$ (and $|0|_p = 0$) turns the
+            valuation into an absolute value, in which numbers divisible by a high power of $p$ are <em>small</em>.
+            The strong triangle inequality becomes $|x + y|_p \le \max(|x|_p, |y|_p)$, which is stronger than the
+            ordinary triangle inequality. Two <span class="nowrap">$p$-adic</span> integers are close when their
+            last digits agree: if $x$ and $y$ share their last $n$ digits, then $|x - y|_p \le p^{-n}$.
+          </p>
+        </aside>
+      </section>
+
+      <section id="code">
+        <h2>7. Read the code</h2>
+        <p>
+          Every computation on this page is done by a small TypeScript library in
+          <a href="https://github.com/rothlmar/zpintro/tree/main/src/padic"><code>src/padic/</code></a>. Each file
+          covers one idea:
+        </p>
+        <ul class="code-list">
+          <li><a href="https://github.com/rothlmar/zpintro/blob/main/src/padic/digits.ts"><code>digits.ts</code></a>: integers to <span class="nowrap">$p$-adic</span> digits (the series representation)</li>
+          <li><a href="https://github.com/rothlmar/zpintro/blob/main/src/padic/sequences.ts"><code>sequences.ts</code></a>: coherent sequences (the sequence representation) and conversion to and from digits</li>
+          <li><a href="https://github.com/rothlmar/zpintro/blob/main/src/padic/arithmetic.ts"><code>arithmetic.ts</code></a>: addition with carries, long multiplication</li>
+          <li><a href="https://github.com/rothlmar/zpintro/blob/main/src/padic/inverse.ts"><code>inverse.ts</code></a>: right-to-left long division and units</li>
+          <li><a href="https://github.com/rothlmar/zpintro/blob/main/src/padic/rational.ts"><code>rational.ts</code></a>: fractions and their eventually periodic expansions</li>
+          <li><a href="https://github.com/rothlmar/zpintro/blob/main/src/padic/valuation.ts"><code>valuation.ts</code></a>: $v_p$, the strong triangle inequality, $|x|_p$</li>
+          <li><a href="https://github.com/rothlmar/zpintro/blob/main/src/padic/modular.ts"><code>modular.ts</code></a>: small helpers (remainders, powers, inverses mod $p$)</li>
+        </ul>
+      </section>
+
+      <section id="further-reading">
+        <h2>8. Further reading</h2>
+        <p>
+          Everything on this page is standard material, found in the opening chapters of most introductions to
+          <span class="nowrap">$p$-adic</span> numbers. These are good places to continue.
+        </p>
+        <ol class="references">
+          <li>
+            Fernando Q. Gouvêa, <cite><span class="nowrap">$p$-adic</span> Numbers: An Introduction</cite>, 3rd ed., Universitext, Springer, 2020.
+            <a href="https://doi.org/10.1007/978-3-030-47295-5">doi:10.1007/978-3-030-47295-5</a>.
+            <span class="annotation">The friendliest full-length introduction. It develops $\mathbb{Z}_p$ through
+            digit expansions and coherent sequences, much as this page does, and continues to analysis and algebra
+            over $\mathbb{Q}_p$.</span>
+          </li>
+          <li>
+            Svetlana Katok, <cite><span class="nowrap">$p$-adic</span> Analysis Compared with Real</cite>, Student Mathematical Library 37,
+            American Mathematical Society, 2007.
+            <a href="https://bookstore.ams.org/stml-37">AMS bookstore page</a>.
+            <span class="annotation">Short and elementary. Its first chapter covers the arithmetic of <span class="nowrap">$p$-adic</span>
+            numbers, and the rest keeps comparing them with the real numbers.</span>
+          </li>
+          <li>
+            Neal Koblitz, <cite><span class="nowrap">$p$-adic</span> Numbers, <span class="nowrap">$p$-adic</span> Analysis, and Zeta-Functions</cite>, 2nd ed., Graduate Texts
+            in Mathematics 58, Springer, 1984.
+            <a href="https://doi.org/10.1007/978-1-4612-1112-9">doi:10.1007/978-1-4612-1112-9</a>.
+            <span class="annotation">Chapter I is a concise treatment of the valuation, $\mathbb{Q}_p$, and
+            computing <span class="nowrap">$p$-adic</span> expansions, with many exercises.</span>
+          </li>
+          <li>
+            Jean-Pierre Serre, <cite>A Course in Arithmetic</cite>, Graduate Texts in Mathematics 7, Springer, 1973.
+            <a href="https://doi.org/10.1007/978-1-4684-9884-4">doi:10.1007/978-1-4684-9884-4</a>.
+            <span class="annotation">Chapter II defines $\mathbb{Z}_p$ as the inverse limit of the rings
+            $\mathbb{Z}/p^n\mathbb{Z}$ and characterizes its units in a few pages. It is terse, and suits readers
+            comfortable with algebra.</span>
+          </li>
+          <li>
+            Keith Conrad, “The <span class="nowrap">$p$-adic</span> expansion of rational numbers,” expository notes.
+            <a href="https://kconrad.math.uconn.edu/blurbs/gradnumthy/rationalsinQp.pdf">PDF</a>.
+            <span class="annotation">Proves that the rational numbers are exactly the <span class="nowrap">$p$-adic</span> numbers with
+            eventually periodic expansions, and gives an algorithm for computing them (compare section 5).</span>
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Source on <a href="https://github.com/rothlmar/zpintro">GitHub</a>. Math typeset with <a href="https://katex.org">KaTeX</a>.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
